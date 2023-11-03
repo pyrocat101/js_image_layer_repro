@@ -1,0 +1,30 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_image_layer")
+
+js_binary(
+    name = "bin",
+    data = ["main.js"],
+    entry_point = "main.js",
+)
+
+platform(
+    name = "linux_amd64",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+)
+
+platform(
+    name = "linux_arm64",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:arm64",
+    ],
+)
+
+js_image_layer(
+    name = "layers",
+    binary = ":bin",
+    platform = ":linux_amd64",
+    root = "/app",
+)
