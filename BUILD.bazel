@@ -1,4 +1,18 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_image_layer")
+load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
+
+npm_package(
+    name = "js_image_layer_repro",
+    srcs = [
+        "package.json",
+        "main.js",
+    ],
+    package = "js_image_layer_repro",
+    visibility = ["//visibility:public"],
+)
 
 js_binary(
     name = "bin",
